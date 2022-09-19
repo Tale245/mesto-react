@@ -2,21 +2,27 @@ import React from "react";
 import api from "../../utils/Api";
 import Cards from "../Card/Card";
 
-const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) => {
-  const [userName, setUserName] = React.useState();
-  const [userDescription, setUserDescription] = React.useState();
-  const [userAvatar, setUserAvatar] = React.useState();
+const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) => {
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription] = React.useState("");
+  const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.userName().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-    });
-    api.getCards().then((data) => {
-      setCards(data);
-    });
+    api
+      .userName()
+      .then((data) => {
+        setUserName(data.name);
+        setUserDescription(data.about);
+        setUserAvatar(data.avatar);
+      })
+      .catch((e) => console.log(e));
+    api
+      .getCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((e) => console.log(e));
   });
 
   return (
@@ -40,7 +46,15 @@ const Main = ({ onEditAvatar, onEditProfile, onAddPlace, onCardClick}) => {
         <button className="profile__add-button" onClick={onAddPlace}></button>
       </section>
       <section className="elements">
-        {cards.map((card) => <Cards key={card._id} link={card.link} name={card.name} likes={card.likes} onCardClick={onCardClick}/>)}
+        {cards.map((card) => (
+          <Cards
+            key={card._id}
+            link={card.link}
+            name={card.name}
+            likes={card.likes}
+            onCardClick={onCardClick}
+          />
+        ))}
       </section>
     </main>
   );

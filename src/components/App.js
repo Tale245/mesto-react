@@ -3,7 +3,7 @@ import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import PopupWithForm from "./PopupWithForm/PopupWithForm";
-import PopupWithImage from "./ImagePopup/ImagePopup";
+import ImagePopup from "./ImagePopup/ImagePopup";
 import React from "react";
 
 function App() {
@@ -12,17 +12,17 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(undefined);
+  const [selectedCard, setSelectedCard] = React.useState({ card: false });
 
-  function handleCardClick(link) {
-    setSelectedCard(link);
+  function handleCardClick({ link, name }) {
+    setSelectedCard({ card: true, link: link, name: name });
   }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({ card: false });
   }
 
   function handleEditAvatarClick() {
@@ -51,71 +51,65 @@ function App() {
         popupName="edit-info"
         title="Редактировать профиль"
         submitBtnName="Сохранить"
-        children={
-          <>
-            <input
-              type="text"
-              name="name"
-              class="popup__field popup__field_name"
-              id="name"
-              minlength="2"
-              maxlength="40"
-              required
-            />
-            <span
-              class="name-error popup__field-error span-error"
-              id="name-error"
-            ></span>
-            <input
-              type="text"
-              name="job"
-              class="popup__field popup__field_job"
-              id="job"
-              minlength="2"
-              maxlength="200"
-              required
-            />
-            <span
-              class="job-error popup__field-error span-error"
-              id="job-error"
-            ></span>
-          </>
-        }
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-      ></PopupWithForm>
+      >
+        <input
+          type="text"
+          name="name"
+          className="popup__field popup__field_name"
+          id="name"
+          minLength="2"
+          maxLength="40"
+          required
+        />
+        <span
+          className="name-error popup__field-error span-error"
+          id="name-error"
+        ></span>
+        <input
+          type="text"
+          name="job"
+          className="popup__field popup__field_job"
+          id="job"
+          minLength="2"
+          maxLength="200"
+          required
+        />
+        <span
+          className="job-error popup__field-error span-error"
+          id="job-error"
+        ></span>
+      </PopupWithForm>
 
       <PopupWithForm
         popupName="add-item"
         title="Новое место"
         submitBtnName="Создать"
-        children={
-          <>
-            <input
-              type="text"
-              name="name"
-              class="popup__field popup__field_title-image"
-              id="title"
-              placeholder="Название"
-              minlength="2"
-              maxlength="30"
-              required
-            />
-            <span class="title-error popup__field-error"></span>
-            <input
-              type="url"
-              name="link"
-              class="popup__field popup__field_image"
-              id="url"
-              placeholder="Ссылка на картинку"
-              required
-            />
-            <span class="url-error popup__field-error" id="url-error"></span>
-          </>
-        }
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-      ></PopupWithForm>
+      >
+        <input
+          type="text"
+          name="name"
+          className="popup__field popup__field_title-image"
+          id="title"
+          placeholder="Название"
+          minLength="2"
+          maxLength="30"
+          required
+        />
+        <span className="title-error popup__field-error"></span>
+        <input
+          type="url"
+          name="link"
+          className="popup__field popup__field_image"
+          id="url"
+          placeholder="Ссылка на картинку"
+          required
+        />
+        <span className="url-error popup__field-error" id="url-error"></span>
+      </PopupWithForm>
 
       <PopupWithForm
         popupName="confirm"
@@ -129,25 +123,22 @@ function App() {
         popupName="change-avatar"
         title="Изменить аватар"
         submitBtnName="Сохранить"
-        children={
-          <>
-            <input
-              class="popup__field popup__field_change-avatar"
-              type="url"
-              id="avatarLink"
-              placeholder="Ссылка на аватар"
-              name="avatar"
-              required
-            />
-            <span
-              class="avatarLink-error popup__field-error span-error"
-              id="avatarLink-error"
-            ></span>
-          </>
-        }
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-      ></PopupWithForm>
+      >
+        <input
+          className="popup__field popup__field_change-avatar"
+          type="url"
+          id="avatarLink"
+          placeholder="Ссылка на аватар"
+          name="avatar"
+          required
+        />
+        <span
+          className="avatarLink-error popup__field-error span-error"
+          id="avatarLink-error"
+        ></span>
+      </PopupWithForm>
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
