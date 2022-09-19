@@ -20,5 +20,5 @@
   <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
 </div>
 
-### :fire: Статистика проекта :</br>[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=tale245&theme=tokyonight&locale=ru)](https://git.io/streak-stats)</br>[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=tale245&layout=compact&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+### :fire: Статистика проекта :</br>[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=tale245&theme=tokyonight&locale=ru)](https://git.io/streak-stats)</br>[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=tale245&layout=compact&theme=tokyonight&locale=ru)](https://github.com/anuraghazra/github-readme-stats)
 
