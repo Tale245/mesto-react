@@ -149,7 +149,7 @@ function App() {
         onClose={closeAllPopups}
       ></PopupWithForm>
 
-      <PopupWithImage card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }

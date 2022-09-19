@@ -1,4 +1,4 @@
-const PopupWithImage = ({card,  onClose}) => {
+const ImagePopup = ({card,  onClose}) => {
     return(
         <div className={`popup popup_image-scale ${card && 'popup_opened'}`}>
         <div className="popup__overlay popup__overlay-img" onClick={onClose}></div>
@@ -13,4 +13,4 @@ const PopupWithImage = ({card,  onClose}) => {
     )
 }
 
-export default PopupWithImage
+export default ImagePopup
