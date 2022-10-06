@@ -14,7 +14,7 @@ class Api {
   }
 
   // Загрузка данных о пользователе с сервера
-  userName() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     }).then((res) => {
@@ -32,13 +32,14 @@ class Api {
   }
 
   // Сохранение измененных данных профиля
-  saveUserName(data) {
+  setUserInfo(data) {
+    debugger
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.job,
+        about: data.about,
       }),
     }).then((res) => {
       return this._checkResponse(res);
@@ -46,6 +47,7 @@ class Api {
   }
 
   uploadCard(data) {
+    debugger
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -59,7 +61,8 @@ class Api {
   }
 
   deleteCard(data) {
-    this._id = data._data._id;
+    debugger
+    this._id = data._id;
     return fetch(`${this._baseUrl}/cards/${this._id}`, {
       method: "DELETE",
       headers: this._headers,
@@ -71,29 +74,38 @@ class Api {
     });
   }
 
-  likeCard(data) {
-    return fetch(`${this._baseUrl}/cards/${data._data._id}/likes`, {
-      method: "PUT",
+  changeLikeCard(data, method) {
+    return fetch(`${this._baseUrl}/cards/${data._id}/likes`, {
+      method: method,
       headers: this._headers,
       body: JSON.stringify({
-        likes: data._data.likes,
+        likes: data.likes,
       }),
     }).then((res) => {
       return this._checkResponse(res);
     });
   }
 
-  dislikeCard(data) {
-    return fetch(`${this._baseUrl}/cards/${data._data._id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-      body: JSON.stringify({
-        likes: data._data.likes,
-      }),
-    }).then((res) => {
-      return this._checkResponse(res);
-    });
+  // dislikeCard(data) {
+  //   return fetch(`${this._baseUrl}/cards/${data}/likes`, {
+  //     method: "DELETE",
+  //     headers: this._headers,
+  //     body: JSON.stringify({
+  //       likes: data.likes,
+  //     }),
+  //   }).then((res) => {
+  //     return this._checkResponse(res);
+  //   });
+  // }
+
+  changeLikeCardStatus(data, isLiked){
+    if(!isLiked){
+      this.changeLikeCard(data, "PUT")
+    } else {
+      this.changeLikeCard(data, "DELETE")
+    }
   }
+
 
   changeAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {

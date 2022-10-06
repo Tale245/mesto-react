@@ -47,3 +47,11 @@
 @import url(./blocks/popup/__container/_change-avatar/popup__container_change-avatar.css);
 @import url(./blocks/popup/__submit-button/_change-avatar/popup__submit-button_change-avatar.css);
 @import url(./blocks/popup/__field/_change-avatar/popup__field_change-avatar.css);
+
+.card__delete-button_visible{
+    display: block;
+}
+
+.card__delete-button_hidden{
+    display: none;
+}

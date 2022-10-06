@@ -1,5 +1,4 @@
 const ImagePopup = ({card,  onClose}) => {
-  console.log({card})
     return(
         <div className={`popup popup_image-scale ${card.card && 'popup_opened'}`}>
         <div className="popup__overlay popup__overlay-img" onClick={onClose}></div>
