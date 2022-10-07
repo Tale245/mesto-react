@@ -6,9 +6,12 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    }, avatarRef);
+    onUpdateAvatar(
+      {
+        avatar: avatarRef.current.value,
+      },
+      avatarRef
+    );
   }
   return (
     <PopupWithForm

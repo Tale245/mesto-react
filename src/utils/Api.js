@@ -33,7 +33,6 @@ class Api {
 
   // Сохранение измененных данных профиля
   setUserInfo(data) {
-    debugger
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -47,7 +46,6 @@ class Api {
   }
 
   uploadCard(data) {
-    debugger
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -61,7 +59,6 @@ class Api {
   }
 
   deleteCard(data) {
-    debugger
     this._id = data._id;
     return fetch(`${this._baseUrl}/cards/${this._id}`, {
       method: "DELETE",
@@ -98,14 +95,13 @@ class Api {
   //   });
   // }
 
-  changeLikeCardStatus(data, isLiked){
-    if(!isLiked){
-      this.changeLikeCard(data, "PUT")
+  changeLikeCardStatus(data, isLiked) {
+    if (!isLiked) {
+      this.changeLikeCard(data, "PUT");
     } else {
-      this.changeLikeCard(data, "DELETE")
+      this.changeLikeCard(data, "DELETE");
     }
   }
-
 
   changeAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {

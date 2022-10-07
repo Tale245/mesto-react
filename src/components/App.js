@@ -6,7 +6,7 @@ import PopupWithForm from "./PopupWithForm/PopupWithForm";
 import ImagePopup from "./ImagePopup/ImagePopup";
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-// import { CurrentCardContext } from "../contexts/CurrentCardContext";
+import { CurrentCardContext } from "../contexts/CurrentCardContext";
 import api from "../utils/Api";
 import { EditProfilePopup } from "./EditProfilePopup/EditProfilePopup";
 import { EditAvatarPopup } from "./EditAvatarPopup/EditAvatarPopup";
@@ -20,7 +20,6 @@ function App() {
     React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({ card: false });
   const [currentUser, setCurrentUser] = React.useState({});
-  // const [currentCard, setCurrentCard] = React.useState([])
 
   const [cards, setCards] = React.useState([]);
 
@@ -39,7 +38,6 @@ function App() {
       })
       .catch((e) => console.log(e));
   });
-
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -66,14 +64,15 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card, nameRef, linkRef) {
-    debugger
     api
       .uploadCard(card)
       .then((card) => {
         setCards([card, ...cards]);
-      }).then(() => closeAllPopups()).then(() => {
-        nameRef.current.value = ''
-        linkRef.current.value = ''
+      })
+      .then(() => closeAllPopups())
+      .then(() => {
+        nameRef.current.value = "";
+        linkRef.current.value = "";
       })
       .catch((e) => console.log(e));
   }
@@ -103,48 +102,53 @@ function App() {
       .then((result) => {
         setCurrentUser(result);
       })
-      .then(() => closeAllPopups()).then(() => avatarRef.current.value = '')
+      .then(() => closeAllPopups())
+      .then(() => (avatarRef.current.value = ""));
   }
 
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        {/* <CurrentCardContext.Provider value={currentCard}> */}
-        <Header logo={logo} />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+        <CurrentCardContext.Provider value={cards}>
+          <Header logo={logo} />
+          <Main
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+          />
 
-        <Footer />
+          <Footer />
 
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} uploadCard = {handleAddPlaceSubmit} />
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            uploadCard={handleAddPlaceSubmit}
+          />
 
-        <PopupWithForm
-          popupName="confirm"
-          title="Вы уверены?"
-          submitBtnName="Да"
-          isOpen={false}
-          onClose={closeAllPopups}
-        ></PopupWithForm>
+          <PopupWithForm
+            popupName="confirm"
+            title="Вы уверены?"
+            submitBtnName="Да"
+            isOpen={false}
+            onClose={closeAllPopups}
+          ></PopupWithForm>
 
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        {/* </CurrentCardContext.Provider> */}
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        </CurrentCardContext.Provider>
       </CurrentUserContext.Provider>
     </div>
   );
