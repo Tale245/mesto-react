@@ -37,18 +37,20 @@ function App() {
         setCards(data);
       })
       .catch((e) => console.log(e));
-  });
+  }, []);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card, isLiked);
+    api.changeLikeCardStatus(card, isLiked).catch((e) => console.log(e));
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card).then(() => {
-      setCards(cards.filter((item) => item._id !== card._id));
+      setCards(cards.filter((item) => item._id !== card._id)).catch((e) =>
+        console.log(e)
+      );
     });
   }
 
@@ -103,7 +105,8 @@ function App() {
         setCurrentUser(result);
       })
       .then(() => closeAllPopups())
-      .then(() => (avatarRef.current.value = ""));
+      .then(() => (avatarRef.current.value = ""))
+      .catch((e) => console.log(e));
   }
 
   return (
