@@ -83,26 +83,6 @@ class Api {
     });
   }
 
-  // dislikeCard(data) {
-  //   return fetch(`${this._baseUrl}/cards/${data}/likes`, {
-  //     method: "DELETE",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       likes: data.likes,
-  //     }),
-  //   }).then((res) => {
-  //     return this._checkResponse(res);
-  //   });
-  // }
-
-  changeLikeCardStatus(data, isLiked) {
-    if (!isLiked) {
-      this.changeLikeCard(data, "PUT");
-    } else {
-      this.changeLikeCard(data, "DELETE");
-    }
-  }
-
   changeAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",

@@ -42,8 +42,24 @@ function App() {
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
-    // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card, isLiked).catch((e) => console.log(e));
+
+    const newStateItem = (cardWithChangeLikeStatus) => {
+      setCards((stateCards) =>
+        stateCards.map((item) =>
+          item._id === card._id ? cardWithChangeLikeStatus : item
+        )
+      );
+    };
+
+    if (!isLiked) {
+      api
+        .changeLikeCard(card, "PUT")
+        .then((cardWithLike) => newStateItem(cardWithLike));
+    } else {
+      api
+        .changeLikeCard(card, "DELETE")
+        .then((cardWithDislike) => newStateItem(cardWithDislike));
+    }
   }
 
   function handleCardDelete(card) {
