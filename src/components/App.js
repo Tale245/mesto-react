@@ -54,11 +54,13 @@ function App() {
     if (!isLiked) {
       api
         .changeLikeCard(card, "PUT")
-        .then((cardWithLike) => newStateItem(cardWithLike));
+        .then((cardWithLike) => newStateItem(cardWithLike))
+        .catch((e) => console.log(e));
     } else {
       api
         .changeLikeCard(card, "DELETE")
-        .then((cardWithDislike) => newStateItem(cardWithDislike));
+        .then((cardWithDislike) => newStateItem(cardWithDislike))
+        .catch((e) => console.log(e));
     }
   }
 
@@ -111,7 +113,8 @@ function App() {
       .then((result) => {
         setCurrentUser(result);
       })
-      .then(() => closeAllPopups());
+      .then(() => closeAllPopups())
+      .catch((e) => console.log(e));
   }
 
   function handleUpdateAvatar({ avatar }, avatarRef) {
